@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LiskovSubstitution\Creature.cs" />
+    <Compile Include="LiskovSubstitution\Frog.cs" />
+    <Compile Include="LiskovSubstitution\Human.cs" />
+    <Compile Include="LiskovSubstitution\ILegsBreakable.cs" />
+    <Compile Include="LiskovSubstitution\LegsBreaker.cs" />
+    <Compile Include="LiskovSubstitution\Worm.cs" />
     <Compile Include="OpenClose\Calculator.cs" />
     <Compile Include="OpenClose\Multiplier.cs" />
     <Compile Include="OpenClose\IComputable.cs" />
