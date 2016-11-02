@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InterfaceSegregation\IBlindReadable.cs" />
+    <Compile Include="InterfaceSegregation\IScreenable.cs" />
+    <Compile Include="InterfaceSegregation\ReaderScreenForBlind.cs" />
+    <Compile Include="InterfaceSegregation\Screen.cs" />
+    <Compile Include="InterfaceSegregation\TabletScreen.cs" />
     <Compile Include="LiskovSubstitution\Creature.cs" />
     <Compile Include="LiskovSubstitution\Frog.cs" />
     <Compile Include="LiskovSubstitution\Human.cs" />
