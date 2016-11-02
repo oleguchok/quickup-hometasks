@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyInversion\CustomerController.cs" />
+    <Compile Include="DependencyInversion\CustomerService.cs" />
+    <Compile Include="DependencyInversion\ICustomerService.cs" />
     <Compile Include="InterfaceSegregation\IBlindReadable.cs" />
     <Compile Include="InterfaceSegregation\IScreenable.cs" />
     <Compile Include="InterfaceSegregation\ReaderScreenForBlind.cs" />
