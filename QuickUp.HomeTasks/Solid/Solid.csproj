@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenClose\Calculator.cs" />
+    <Compile Include="OpenClose\Multiplier.cs" />
+    <Compile Include="OpenClose\IComputable.cs" />
+    <Compile Include="OpenClose\Summarizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleResponsibility\Builder\ToyBuilder.cs" />
     <Compile Include="SingleResponsibility\Builder\ManualToyBuilder.cs" />
@@ -50,9 +54,7 @@
     <Compile Include="SingleResponsibility\Wrapper\IWrapperable.cs" />
     <Compile Include="SingleResponsibility\Wrapper\PaperWrapper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OpenClose\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
