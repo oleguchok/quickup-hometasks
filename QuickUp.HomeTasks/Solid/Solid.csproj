@@ -41,11 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleResponsibility\Builder\IToyBuilder.cs" />
+    <Compile Include="SingleResponsibility\Builder\ToyBuilder.cs" />
     <Compile Include="SingleResponsibility\Builder\ManualToyBuilder.cs" />
     <Compile Include="SingleResponsibility\Builder\MechanicToyBuilder.cs" />
     <Compile Include="SingleResponsibility\Toy.cs" />
     <Compile Include="SingleResponsibility\ToyPresenter.cs" />
+    <Compile Include="SingleResponsibility\WrappedToy.cs" />
+    <Compile Include="SingleResponsibility\Wrapper\IWrapperable.cs" />
+    <Compile Include="SingleResponsibility\Wrapper\PaperWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OpenClose\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

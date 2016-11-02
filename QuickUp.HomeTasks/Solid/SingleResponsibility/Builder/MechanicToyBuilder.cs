@@ -1,8 +1,8 @@
 ﻿namespace Solid.SingleResponsibility.Builder
 {
-    public class MechanicToyBuilder : IToyBuilder
+    public class MechanicToyBuilder : ToyBuilder
     {
-        public Toy BuildToy()
+        public override Toy BuildToy()
         {
             // mechanic toy building logic
             return new Toy {Name = "Radio car"};

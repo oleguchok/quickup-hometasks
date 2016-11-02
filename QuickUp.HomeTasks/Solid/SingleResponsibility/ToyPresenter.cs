@@ -1,19 +1,23 @@
 ﻿using Solid.SingleResponsibility.Builder;
+using Solid.SingleResponsibility.Wrapper;
 
 namespace Solid.SingleResponsibility
 {
     public class ToyPresenter
     {
-        private readonly IToyBuilder _toyBuilder;
+        private readonly ToyBuilder _toyBuilder;
+        private readonly IWrapperable _wrapper;
 
-        public ToyPresenter(IToyBuilder toyBuilder)
+        public ToyPresenter(ToyBuilder toyBuilder, IWrapperable wrapper)
         {
             _toyBuilder = toyBuilder;
+            _wrapper = wrapper;
         }
 
-        public Toy PresentToyToChildren()
+        public WrappedToy PresentToyToChildren()
         {
-            return _toyBuilder.BuildToy();
+            var toy = _toyBuilder.BuildToy();
+            return _wrapper.WrapToy(toy);
         }
     }
 }
