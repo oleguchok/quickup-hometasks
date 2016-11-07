@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using TestApp.DAL.Infrastructure;
 using TestApp.DAL.Model;
@@ -42,6 +44,11 @@ namespace TestApp.DAL.Repositrories
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().AsEnumerable(); ;
+        }
+
+        public IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        {
+            return _dbSet.Where(where).ToList();
         }
     }
 }

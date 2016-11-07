@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TestApp.DAL.Infrastructure;
 using TestApp.DAL.Model;
 using TestApp.ServiceContracts;
@@ -19,7 +20,13 @@ namespace TestApp.Service
 
         public Person GetPersonById(int id) => _personRepository.GetById(id);
 
-        public IEnumerable<Person> GetAll() => _personRepository.GetAll();
+        public IEnumerable<Person> GetAll(Expression<Func<Person,bool>> where = null)
+        {
+            return where == null 
+                ? _personRepository.GetAll() 
+                : _personRepository.GetMany(where);
+        }
+
         public void AddPerson(Person person)
         {
             if (person == null)

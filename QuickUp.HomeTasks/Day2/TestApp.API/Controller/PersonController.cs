@@ -37,18 +37,21 @@ namespace TestApp.API.Controller
         }
 
         [HttpGet]
-        public IActionResult GetListPersons([FromQuery]int pageNum, int pageSize)
+        public IActionResult GetListPersons([FromQuery]int pageNum, int pageSize, string firstNameFilter)
         {
             var skipAmount = pageSize*(pageNum - 1);
 
             var totalPersons = _personService.GetAll().Count();
             var totalPages = (int)Math.Ceiling((double)totalPersons / pageSize);
+            var results = firstNameFilter == null
+                ? _personService.GetAll().Skip(skipAmount).Take(pageSize)
+                : _personService.GetAll(p => p.FirstName == firstNameFilter).Skip(skipAmount).Take(pageSize);
 
             var pagedResult = new PagedResult<Person>
             {
                 CurrentPage = pageNum,
                 PageSize = pageSize,
-                Results = _personService.GetAll().Skip(skipAmount).Take(pageSize),
+                Results = results,
                 TotalNumberOfItems = totalPersons,
                 TotalNumberOfPages = totalPages
             };

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using TestApp.DAL.Model;
 
 namespace TestApp.DAL.Infrastructure
@@ -10,5 +12,6 @@ namespace TestApp.DAL.Infrastructure
         void Delete(T entity);
         T GetById(int id);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
     }
 }
