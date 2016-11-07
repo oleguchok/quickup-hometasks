@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TestApp.DAL.Infrastructure;
 using TestApp.DAL.Model;
-using TestApp.DAL.Repositrories;
 using TestApp.ServiceContracts;
 
 namespace TestApp.Service
@@ -17,9 +17,49 @@ namespace TestApp.Service
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Person> GetAll()
+        public Person GetPersonById(int id) => _personRepository.GetById(id);
+
+        public IEnumerable<Person> GetAll() => _personRepository.GetAll();
+        public void AddPerson(Person person)
         {
-            return _personRepository.GetAll();
+            if (person == null)
+            {
+                throw new ArgumentNullException(nameof(person));
+            }
+
+            if (person.FirstName == null || person.LastName == null)
+            {
+                throw new ArgumentException();
+            }
+
+            _personRepository.Add(person);
         }
+
+        public void UpdatePerson(Person person)
+        {
+            if (person == null)
+            {
+                throw new ArgumentNullException(nameof(person));
+            }
+
+            if (person.FirstName == null || person.LastName == null)
+            {
+                throw new ArgumentException();
+            }
+
+            _personRepository.Update(person);
+        }
+
+        public void RemovePerson(Person person)
+        {
+            if (person == null)
+            {
+                throw new ArgumentNullException(nameof(person));
+            }
+
+            _personRepository.Delete(person);
+        }
+
+        public void SavePerson() => _unitOfWork.Commit();
     }
 }

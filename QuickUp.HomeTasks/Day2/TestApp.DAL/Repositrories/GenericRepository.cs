@@ -12,10 +12,12 @@ namespace TestApp.DAL.Repositrories
         where T : class, IEntityBase
     {
         private TestAppContext _context;
+        private DbSet<T> _dbSet;
 
         public GenericRepository(TestAppContext context)
         {
             _context = context;
+            _dbSet = _context.Set<T>();
         }
 
         public void Add(T entitty)
@@ -25,7 +27,8 @@ namespace TestApp.DAL.Repositrories
 
         public void Update(T entity)
         {
-            _context.Update(entity);
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
@@ -35,7 +38,7 @@ namespace TestApp.DAL.Repositrories
 
         public T GetById(int id)
         {
-            return _context.Set<T>().FirstOrDefault(t => t.Id == id);
+            return _dbSet.AsNoTracking().FirstOrDefault(t => t.Id == id);
         }
 
         public IEnumerable<T> GetAll()
