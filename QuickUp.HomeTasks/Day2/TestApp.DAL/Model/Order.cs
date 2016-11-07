@@ -1,6 +1,6 @@
 ﻿namespace TestApp.DAL.Model
 {
-    public class Order
+    public class Order : IEntityBase
     {
         public int Id { get; set; }
         public double Amount { get; set; }

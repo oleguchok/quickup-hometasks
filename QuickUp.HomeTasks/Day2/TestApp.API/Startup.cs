@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TestApp.DAL;
 using Microsoft.EntityFrameworkCore;
+using TestApp.DAL.Infrastructure;
+using TestApp.DAL.Repositrories;
+using TestApp.Service;
+using TestApp.ServiceContracts;
 
 namespace TestApp.API
 {
@@ -28,6 +31,14 @@ namespace TestApp.API
         {
             services.AddDbContext<TestAppContext>(options =>
                options.UseSqlServer(Configuration["ConnectionStrings:TestAppDatabase"]));
+
+            // DI
+            services.AddScoped(typeof(IRepository<>), typeof (GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IOrderService, OrderService>();
+
+            services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -38,6 +49,8 @@ namespace TestApp.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMvc();
         }
     }
 }

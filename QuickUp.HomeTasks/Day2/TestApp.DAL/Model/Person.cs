@@ -2,7 +2,7 @@
 
 namespace TestApp.DAL.Model
 {
-    public class Person
+    public class Person : IEntityBase
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
