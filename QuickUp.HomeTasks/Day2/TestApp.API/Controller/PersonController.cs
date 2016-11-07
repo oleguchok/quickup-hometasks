@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using TestApp.API.Model;
 using TestApp.DAL.Model;
 using TestApp.ServiceContracts;
 
@@ -34,9 +37,23 @@ namespace TestApp.API.Controller
         }
 
         [HttpGet]
-        public IActionResult GetListPersons()
+        public IActionResult GetListPersons([FromQuery]int pageNum, int pageSize)
         {
-            return new OkObjectResult(_personService.GetAll());
+            var skipAmount = pageSize*(pageNum - 1);
+
+            var totalPersons = _personService.GetAll().Count();
+            var totalPages = (int)Math.Ceiling((double)totalPersons / pageSize);
+
+            var pagedResult = new PagedResult<Person>
+            {
+                CurrentPage = pageNum,
+                PageSize = pageSize,
+                Results = _personService.GetAll().Skip(skipAmount).Take(pageSize),
+                TotalNumberOfItems = totalPersons,
+                TotalNumberOfPages = totalPages
+            };
+
+            return new OkObjectResult(pagedResult);
         }
 
         [HttpPut("{id}")]
@@ -61,7 +78,7 @@ namespace TestApp.API.Controller
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DelerePerson(int id)
+        public IActionResult DeletePerson(int id)
         {
             var person = _personService.GetPersonById(id);
             if (person == null)
