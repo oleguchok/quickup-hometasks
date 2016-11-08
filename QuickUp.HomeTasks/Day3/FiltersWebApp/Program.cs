@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace TestApp.WebApp
+namespace FiltersWebApp
 {
     public class Program
     {
