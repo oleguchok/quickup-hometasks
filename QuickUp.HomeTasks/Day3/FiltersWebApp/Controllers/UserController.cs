@@ -12,6 +12,7 @@ namespace FiltersWebApp.Controllers
     {
         public IActionResult Index()
         {
+            throw new Exception();
             return new OkObjectResult(new User {Username = "Yy", Password = "123"});
         }
     }

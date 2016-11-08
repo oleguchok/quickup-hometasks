@@ -14,7 +14,10 @@ namespace FiltersWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options =>
-                    options.Filters.Add(typeof(ResultFilter)));
+            {
+                options.Filters.Add(typeof(ResultFilter));
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
