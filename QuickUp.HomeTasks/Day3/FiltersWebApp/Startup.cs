@@ -1,7 +1,12 @@
-﻿using FiltersWebApp.Filters;
+﻿using FiltersWebApp.Core.Extensions;
+using FiltersWebApp.Filters;
+using FiltersWebApp.Infrastructure;
+using FiltersWebApp.Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -9,10 +14,26 @@ namespace FiltersWebApp
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+        public IConfigurationRoot Configuration { get; set; }
+
+        public Startup(IHostingEnvironment env)
+        {
+            var contentRootPath = env.ContentRootPath;
+
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(contentRootPath)
+                .AddJsonFile("config.json");
+
+            Configuration = configBuilder.Build();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProductContext>(options =>
+               options.UseSqlServer(Configuration["ConnectionStrings:TestAppDatabase"]));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ResultFilter));
@@ -29,6 +50,10 @@ namespace FiltersWebApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.Map("/api/products", (IApplicationBuilder appBuilder) =>
+            {
+                appBuilder.UseProductRequest();
+            });
 
             app.UseMvc();
 
