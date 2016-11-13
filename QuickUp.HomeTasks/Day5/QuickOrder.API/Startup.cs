@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using QuickOrder.DAL;
+using QuickOrder.DAL.Infrastructure;
 using QuickOrder.Entities;
+using QuickOrder.Services;
+using QuickOrder.Services.Contracts;
 
 namespace QuickOrder.API
 {
@@ -36,6 +39,16 @@ namespace QuickOrder.API
                 })
                 .AddEntityFrameworkStores<QuickOrderContext, int>()
                 .AddDefaultTokenProviders();
+
+            // DI DAL
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IEntityBaseRepository<>), typeof(IEntityBaseRepository<>));
+
+            // DI Services
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
+
+            services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

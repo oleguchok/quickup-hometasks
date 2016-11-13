@@ -11,7 +11,8 @@
       "version": "1.0.1",
       "type": "platform"
     },
-    "QuickOrder.DAL": "1.0.0-*"
+    "QuickOrder.DAL": "1.0.0-*",
+"QuickOrder.Services": "1.0.0-*"
   },
 
   "tools": {
