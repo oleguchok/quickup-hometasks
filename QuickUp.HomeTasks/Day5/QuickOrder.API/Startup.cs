@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using QuickOrder.DAL;
 using QuickOrder.DAL.Infrastructure;
+using QuickOrder.DAL.Repostitories;
 using QuickOrder.Entities;
 using QuickOrder.Services;
 using QuickOrder.Services.Contracts;
@@ -42,7 +42,7 @@ namespace QuickOrder.API
 
             // DI DAL
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IEntityBaseRepository<>), typeof(IEntityBaseRepository<>));
+            services.AddScoped(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
 
             // DI Services
             services.AddScoped<IProductService, ProductService>();
