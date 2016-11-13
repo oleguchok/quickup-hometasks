@@ -2,7 +2,6 @@
 using FiltersWebApp.Infrastructure.Repository;
 using FiltersWebApp.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace FiltersWebApp.Core.Middleware
 {
